@@ -6,6 +6,8 @@ use App\Http\Controllers\DeliveryMethodController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentTypeController;
+use App\Http\Controllers\StatusController as StatusControllerAlias;
+use App\Http\Controllers\StatusOrderController;
 use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\UserPaymentCardsController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +24,8 @@ Route::apiResources([
     "categories" => CategoryController::class,
     "favorites" => FavoriteController::class,
     "categories.products" => CategoryProductController::class,
+    'statuses' => StatusControllerAlias::class,
+    'statuses.orders' => StatusOrderController::class,
     "products" => ProductController::class,
     'orders' => OrderController::class,
     'delivery-methods' => DeliveryMethodController::class,
