@@ -6,7 +6,9 @@ use App\Http\Controllers\DeliveryMethodController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentTypeController;
-use App\Http\Controllers\StatusController as StatusControllerAlias;
+use App\Http\Controllers\ProductReviewController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\StatusOrderController;
 use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\UserPaymentCardsController;
@@ -24,7 +26,7 @@ Route::apiResources([
     "categories" => CategoryController::class,
     "favorites" => FavoriteController::class,
     "categories.products" => CategoryProductController::class,
-    'statuses' => StatusControllerAlias::class,
+    'statuses' => StatusController::class,
     'statuses.orders' => StatusOrderController::class,
     "products" => ProductController::class,
     'orders' => OrderController::class,
@@ -32,4 +34,6 @@ Route::apiResources([
     'payment-types' => PaymentTypeController::class,
     'user-addresses' => UserAddressController::class,
     'user-payment-card' => UserPaymentCardsController::class,
+    'reviews' => ReviewController::class,
+    'products.reviews' => ProductReviewController::class,
 ]);
