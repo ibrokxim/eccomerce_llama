@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Product;
 use App\Models\Stock;
 use App\Models\UserAddress;
+use Illuminate\Http\JsonResponse;
 
 class OrderController extends Controller
 {
@@ -19,9 +20,15 @@ class OrderController extends Controller
     }
 
 
-    public function index()
+    public function index(): JsonResponse
     {
-        return auth()->user()->orders()->get();
+        if(request()->has('status_id')){
+            return $this->response(OrderResource::collection(
+                auth()->user()->orders()->where('status_id', request('status_id'))->paginate(10)
+            ));
+        }
+
+        return $this->response(OrderResource::collection(auth()->user()->orders()->paginate(10)));
     }
 
 
@@ -74,13 +81,13 @@ class OrderController extends Controller
                 }
             }
 
-            return 'Успех!';
+            return $this->success('Успех!', [$order]);
         } else {
-            return response([
-                'success' => false,
-                'message' => 'Продукт не найден или закончилось на складе',
-                'not_found_products' => $notFoundProducts,
-                ]);
+            return $this->error(
+                'Продукт не найден или закончилось на складе',
+                ['not_found_products' => $notFoundProducts]
+            );
+
         }
 
     }
@@ -88,7 +95,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        return new OrderResource($order);
+        return $this->response(new OrderResource($order));
     }
 
 

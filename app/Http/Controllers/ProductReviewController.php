@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReviewRequest;
-use App\Http\Resources\ReviewResource;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 
 class ProductReviewController extends Controller
 {
@@ -13,20 +13,19 @@ class ProductReviewController extends Controller
         $this->middleware('auth:sanctum');
     }
 
-    public function index(Product $product)
+
+    public function index(Product $product): JsonResponse
     {
-
-        return response([
-            'overall_rating' => $product->reviews()->avg('rating'),
+        return $this->response([
+            'overall_rating' => round($product->reviews()->avg('rating'), 1),
             'reviews_count' => $product->reviews()->count(),
-            'reviews' => ReviewResource::collection($product->reviews()->paginate(10)),
-
+            'reviews' => $product->reviews()->with('user')->paginate(10),
         ]);
     }
 
     public function store(Product $product,StoreReviewRequest $request)
     {
-        $product->reviews()->create(
+        $review = $product->reviews()->create(
             [
                 'user_id' => auth()->id(),
                 'rating' => $request->rating,
@@ -34,7 +33,8 @@ class ProductReviewController extends Controller
             ]
         );
 
-        return response(['success' => true, 'message' => 'Описание создано']);
-    }
+        return $this->success('Описание создано', $review);
+
+   }
 
 }
