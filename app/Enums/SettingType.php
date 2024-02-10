@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum SettingType
+enum SettingType: string
 {
     case SWITCH = 'switch';
     case SELECT = 'select';

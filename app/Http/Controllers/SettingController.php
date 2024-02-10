@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SettingResource;
 use App\Models\Setting;
 use App\Http\Requests\StoreSettingRequest;
 use App\Http\Requests\UpdateSettingRequest;
 
 class SettingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        return $this->response(SettingResource::collection(Setting::all()));
     }
 
     /**

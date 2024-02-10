@@ -6,16 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->text('name');
             $table->enum('type', ['switch', 'select']);
-            $table->json('values');
             $table->timestamps();
         });
     }

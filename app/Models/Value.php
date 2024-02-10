@@ -15,9 +15,9 @@ class Value extends Model
     protected $fillable = ["name"];
 
 
-    public function attributes(): BelongsTo
+    public function valueable(): BelongsTo
     {
-        return $this->belongsTo(Attribute::class);
+        return $this->morphTo();
     }
 
 }

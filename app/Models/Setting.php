@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\Translatable\HasTranslations;
 
 class Setting extends Model
@@ -14,4 +15,8 @@ class Setting extends Model
 
     public array $translatable = ['name'];
 
+    public function values(): MorphMany
+    {
+        return $this->morphMany(Value::class, 'valueable');
+    }
 }

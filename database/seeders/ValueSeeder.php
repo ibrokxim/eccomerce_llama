@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Attribute;
 use App\Models\Value;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,36 +14,35 @@ class ValueSeeder extends Seeder
      */
     public function run(): void
     {
-        Value::create([
-           "attribute_id" => 1,
+        $attribute = Attribute::find(1);
+
+        $attribute->values()->create([
             "name" => json_encode([
                 "uz" => "Qizil",
                 "ru" => "Красный",
             ])
         ]);
-        Value::create([
-            "attribute_id" => 1,
+        $attribute->values()->create([
             "name" => json_encode([
                 "uz" => "Qora",
                 "ru" => "Черынй",
             ])
         ]);
-        Value::create([
-            "attribute_id" => 1,
+        $attribute->values()->create([
             "name" => json_encode([
-                "uz" => "Jigaarrang",
+                "uz" => "Jigarrang",
                 "ru" => "Коричневый",
             ])
         ]);
-        Value::create([
-            "attribute_id" => 2,
+
+        $attribute = Attribute::find(2);
+        $attribute->values()->create([
             "name" => json_encode([
                 "uz" => "MDF",
                 "ru" => "МДФ",
             ])
         ]);
-        Value::create([
-            "attribute_id" => 2,
+        $attribute->values()->create([
             "name" => json_encode([
                 "uz" => "LDS",
                 "ru" => "ЛДС",
