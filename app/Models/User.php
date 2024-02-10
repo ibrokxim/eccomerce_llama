@@ -14,11 +14,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -81,6 +77,11 @@ class User extends Authenticatable
     public function settings(): HasMany
     {
         return $this->hasMany(UserSetting::class, 'user_id', 'id');
+    }
+
+    public function paymentCards(): HasMany
+    {
+        return $this->hasMany(UserPaymentCards::class);
     }
 
 }
