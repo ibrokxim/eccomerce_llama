@@ -38,4 +38,16 @@ class ProductController extends Controller
     {
         //
     }
+
+    // Возвращаем связанные товары в продуктах
+    public function related(Product $product)
+    {
+        return $this->response(
+            ProductResource::collection(
+                Product::query()
+                    ->where('category_id', $product->category_id)
+                    ->limit(15)
+                    ->get())
+        );
+    }
 }
