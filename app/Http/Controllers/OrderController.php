@@ -17,6 +17,7 @@ class OrderController extends Controller
     public function __construct()
     {
         $this->middleware ('auth:sanctum');
+        $this->authorizeResource(Order::class, 'order');
     }
 
 
@@ -69,6 +70,7 @@ class OrderController extends Controller
                     'sum' => $sum,
                     'status_id' => in_array($request['payment_type_id'], [1, 2]) ? 1 : 10,
                     'address' => $address,
+                    //'region' => $address->region,
                     'products' => $products,
                 ]);
 
@@ -113,6 +115,9 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
-        //
+        $this->authorize('delete');
+
+        $order->delete();
+        return 1;
     }
 }

@@ -94,7 +94,6 @@ class StatsController extends Controller
         }
 
         return $this->response($response);
-
     }
 
     //graphic
